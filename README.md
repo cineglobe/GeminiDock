@@ -7,9 +7,9 @@ This project is intended for people who can't normally access AI on the internet
 ## Disclaimer
 
 - This project runs on your local computer, serving a website in which you can chat with Gemini using your own API key. The project connects to our Supabase integration in order for accounts to work.
-- Why do I need to make an account and what is stored? I thought this was a local app?
-- 
-     We offer account integration in order to have your chats stored within your account which are, again, end-to-end encrypted, allowing you to access them from anywhere. Your API key for Gemini is end-to-end encrypted and stored with your account.
+## Why do I need to make an account and what is stored? I thought this was a local app?
+
+ℹ️ We offer account integration in order to have your chats stored within your account which are, again, end-to-end encrypted, allowing you to access them from anywhere. Your API key for Gemini is end-to-end encrypted and stored with your account.
 
 ## Features
 
