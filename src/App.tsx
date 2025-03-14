@@ -460,9 +460,14 @@ function App() {
 
   return (
     <div 
-      className={`h-screen flex ${settings.theme === 'dark' ? 'dark' : 'light'}`}
+      className={`h-screen flex ${settings.theme === 'dark' ? 'dark' : 'light'} relative`}
       onMouseMove={settings.sidebarAutoHide ? handleMouseMove : undefined}
     >
+      {/* Version indicator */}
+      <div className="absolute bottom-2 left-2 text-gray-600 text-xs opacity-50 z-10">
+        Version 1.0
+      </div>
+      
       <div 
         className={`fixed top-0 left-0 h-screen sidebar-transition ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-64'
