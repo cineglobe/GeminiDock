@@ -83,7 +83,7 @@ To use GeminiDock, you'll need a Gemini API key:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under a proprietary license - see the LICENSE file for details.
 
 ## Acknowledgements
 
