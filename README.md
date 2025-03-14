@@ -43,7 +43,7 @@ If you prefer to run from source or want to make modifications:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/geminidock.git
+   git clone https://github.com/sharkdudefin12/geminidock.git
    cd geminidock
    ```
 
@@ -77,10 +77,9 @@ If you prefer to run from source or want to make modifications:
 
 To use GeminiDock, you'll need a Gemini API key:
 
-1. Visit [Google AI Studio](https://ai.google.dev/)
-2. Create or sign in to your Google account
-3. Navigate to the API section and create an API key
-4. Copy the API key and paste it into the GeminiDock settings
+1. Visit [Google AI Studio](https://aistudio.google.com/apikey)
+2. Navigate to the API section and create an API key
+3. Copy the API key and paste it into the GeminiDock settings
 
 ## License
 
