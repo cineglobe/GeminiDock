@@ -25,7 +25,7 @@ This project is intended for people who can't normally access AI on the internet
 
 For the fastest way to get started:
 
-1. Download the latest release from [GitHub Releases](https://github.com/sharkdudefin12/geminidock/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/cineglobe/geminidock/releases)
 2. Extract the zip file to a location on your computer
 3. Open a command prompt or terminal in the extracted folder
 4. Run the following command (requires Node.js):
@@ -43,7 +43,7 @@ If you prefer to run from source or want to make modifications:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/sharkdudefin12/geminidock.git
+   git clone https://github.com/cineglobe/geminidock.git
    cd geminidock
    ```
 
