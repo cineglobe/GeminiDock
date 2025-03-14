@@ -12,6 +12,7 @@ interface SidebarProps {
   model: Model;
   onChangeModel: (model: Model) => void;
   onToggleSidebar: () => void;
+  sidebarAutoHide: boolean;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -23,6 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   model,
   onChangeModel,
   onToggleSidebar,
+  sidebarAutoHide,
 }) => {
   return (
     <motion.div 
@@ -33,12 +35,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     >
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl font-bold text-white">GeminiDock</h1>
-        <button
-          onClick={onToggleSidebar}
-          className="text-gray-400 hover:text-white transition-colors p-1 rounded-full hover:bg-slate-800"
-        >
-          <ChevronLeft size={18} />
-        </button>
+        {sidebarAutoHide && (
+          <button
+            onClick={onToggleSidebar}
+            className="text-gray-400 hover:text-white transition-colors p-1 rounded-full hover:bg-slate-800"
+          >
+            <ChevronLeft size={18} />
+          </button>
+        )}
       </div>
       
       <button
@@ -69,15 +73,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       <div className="mt-4 space-y-3 pt-4 border-t border-slate-800">
-        <select
-          value={model}
-          onChange={(e) => onChangeModel(e.target.value as Model)}
-          className="w-full bg-slate-800 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700"
-        >
-          <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-          <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-        </select>
-
         <button
           onClick={onOpenSettings}
           className="flex items-center justify-center gap-2 w-full text-gray-300 hover:bg-slate-800 rounded-lg px-4 py-2 transition-colors"

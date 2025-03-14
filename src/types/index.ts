@@ -4,6 +4,13 @@ export type Theme = 'dark' | 'light';
 
 export type AnimationQuality = 'low' | 'medium' | 'high';
 
+export type TextSize = 'smaller' | 'default' | 'larger';
+
+export interface User {
+  id: string;
+  email: string;
+}
+
 export interface Settings {
   defaultModel: Model;
   theme: Theme;
@@ -11,6 +18,8 @@ export interface Settings {
   animationSpeed: number;
   animationQuality: AnimationQuality;
   apiKey: string;
+  sidebarAutoHide: boolean;
+  textSize: TextSize;
 }
 
 export interface FileAttachment {
@@ -35,4 +44,5 @@ export interface Chat {
   model: Model;
   createdAt: number;
   updatedAt: number;
+  isTemporary?: boolean;
 }

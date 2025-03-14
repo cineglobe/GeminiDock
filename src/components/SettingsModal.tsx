@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sliders } from 'lucide-react';
+import { X, Sliders, Trash } from 'lucide-react';
 import type { Settings } from '../types';
 
 interface SettingsModalProps {
@@ -8,7 +8,6 @@ interface SettingsModalProps {
   onClose: () => void;
   settings: Settings;
   onUpdateSettings: (settings: Partial<Settings>) => void;
-  onExportChats: () => void;
   onDeleteAllChats: () => void;
 }
 
@@ -17,7 +16,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onClose,
   settings,
   onUpdateSettings,
-  onExportChats,
   onDeleteAllChats,
 }) => {
   return (
@@ -73,8 +71,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   }
                   className="w-full bg-gray-700 text-white rounded-lg px-3 py-2 border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 >
-                  <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
                   <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                  <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
                 </select>
               </div>
 
@@ -94,78 +92,56 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 </select>
               </div>
 
-              <div className="space-y-4">
-                <label className="block text-sm font-medium text-gray-300">
-                  Animation Settings
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium text-gray-300">
+                  Auto-hide Sidebar
                 </label>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-400">Enable Animations</span>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={settings.animationsEnabled}
-                      onChange={(e) =>
-                        onUpdateSettings({ animationsEnabled: e.target.checked })
-                      }
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <label className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={settings.sidebarAutoHide}
+                    onChange={(e) =>
+                      onUpdateSettings({ sidebarAutoHide: e.target.checked })
+                    }
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-gray-300">
+                    Text Size
                   </label>
+                  <span className="text-xs text-gray-400">
+                    {settings.textSize === 'smaller' ? 'Smaller' : 
+                     settings.textSize === 'default' ? 'Default' : 'Larger'}
+                  </span>
                 </div>
-                
-                {settings.animationsEnabled && (
-                  <>
-                    <div className="flex flex-col space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm text-gray-400">Animation Speed</span>
-                        <span className="text-sm text-gray-400">{settings.animationSpeed}x</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="0.5"
-                        max="2"
-                        step="0.1"
-                        value={settings.animationSpeed}
-                        onChange={(e) => onUpdateSettings({ animationSpeed: parseFloat(e.target.value) })}
-                        className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                      />
-                      <div className="flex justify-between text-xs text-gray-500">
-                        <span>Slower</span>
-                        <span>Faster</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm text-gray-400">Animation Quality</span>
-                        <span className="text-sm text-gray-400">{settings.animationQuality}</span>
-                      </div>
-                      <select
-                        value={settings.animationQuality}
-                        onChange={(e) => onUpdateSettings({ animationQuality: e.target.value as any })}
-                        className="w-full bg-gray-700 text-white rounded-lg px-3 py-2 border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                      >
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                      </select>
-                    </div>
-                  </>
-                )}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-gray-400">A</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="2"
+                    value={settings.textSize === 'smaller' ? 0 : settings.textSize === 'default' ? 1 : 2}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      const size = value === 0 ? 'smaller' : value === 1 ? 'default' : 'larger';
+                      onUpdateSettings({ textSize: size as any });
+                    }}
+                    className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <span className="text-base font-bold text-gray-400">A</span>
+                </div>
               </div>
 
               <div className="space-y-2 pt-4 border-t border-gray-700">
                 <button
-                  onClick={onExportChats}
-                  className="w-full bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 transition-colors"
-                >
-                  Export Chats
-                </button>
-                <button
                   onClick={onDeleteAllChats}
-                  className="w-full bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-700 transition-colors"
+                  className="w-full bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-700 transition-colors flex items-center justify-center gap-2"
                 >
+                  <Trash size={16} />
                   Delete All Chats
                 </button>
               </div>
