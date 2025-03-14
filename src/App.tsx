@@ -52,6 +52,7 @@ function App() {
     setTextSize,
     addChat,
     updateChat,
+    deleteChat,
     deleteAllChats,
     setCurrentChat,
     loadChats,
@@ -484,6 +485,7 @@ function App() {
           onChangeModel={setDefaultModel}
           onToggleSidebar={() => setIsSidebarOpen(false)}
           sidebarAutoHide={settings.sidebarAutoHide}
+          onDeleteChat={deleteChat}
         />
       </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Plus, Settings, Trash2, ChevronLeft } from 'lucide-react';
 import type { Chat, Model } from '../types';
@@ -13,6 +13,7 @@ interface SidebarProps {
   onChangeModel: (model: Model) => void;
   onToggleSidebar: () => void;
   sidebarAutoHide: boolean;
+  onDeleteChat: (chatId: string) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -25,7 +26,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onChangeModel,
   onToggleSidebar,
   sidebarAutoHide,
+  onDeleteChat,
 }) => {
+  const [hoveredChatId, setHoveredChatId] = useState<string | null>(null);
+
+  const handleDeleteChat = (e: React.MouseEvent, chatId: string) => {
+    e.stopPropagation(); // Prevent triggering the chat selection
+    onDeleteChat(chatId);
+  };
+
   return (
     <motion.div 
       className="w-64 bg-slate-900 border-r border-slate-800 p-4 flex flex-col h-full relative"
@@ -60,13 +69,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelectChat(chat.id)}
+            onMouseEnter={() => setHoveredChatId(chat.id)}
+            onMouseLeave={() => setHoveredChatId(null)}
             className={`flex items-center gap-2 w-full rounded-lg px-3 py-2 text-left ${
               chat.id === currentChatId
                 ? 'bg-slate-800 text-white'
                 : 'text-gray-300 hover:bg-slate-800'
             }`}
           >
-            <MessageSquare size={16} />
+            {hoveredChatId === chat.id ? (
+              <Trash2 
+                size={16} 
+                className="text-red-400 hover:text-red-300 cursor-pointer"
+                onClick={(e) => handleDeleteChat(e, chat.id)}
+              />
+            ) : (
+              <MessageSquare size={16} />
+            )}
             <span className="truncate flex-1">{chat.title}</span>
           </motion.button>
         ))}
